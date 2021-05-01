@@ -137,14 +137,14 @@ if (statsPort) {
   
   stats.onMatchReport((event: MatchReportEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       if (event.aborted) {
         console.log(`[${now()}] Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
       }
       else {
-        console.log(`[${now()}] Game of type ${event.factory} has finished.`)
+        console.log(`[${now()}] Game of type ${event.gameType}/${event.factory} has finished.`)
       }  
     }
   })
@@ -160,7 +160,7 @@ if (statsPort) {
   
   stats.onPlayerConnect((event: PlayerConnectEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Player ${event.name} connected`)
@@ -169,7 +169,7 @@ if (statsPort) {
   
   stats.onPlayerDeath((event: PlayerDeathEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       if (event.killer) {
@@ -183,7 +183,7 @@ if (statsPort) {
   
   stats.onPlayerDisconnect((event: PlayerDisconnectEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Player ${event.name} disconnected`)
@@ -192,7 +192,7 @@ if (statsPort) {
   
   stats.onPlayerMedal((event: PlayerMedalEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Player ${event.name} earned medal ${event.medal}`)
@@ -201,7 +201,7 @@ if (statsPort) {
   
   stats.onPlayerStats((event: PlayerStatsEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
@@ -210,7 +210,7 @@ if (statsPort) {
   
   stats.onPlayerSwitchTeam((event: PlayerSwitchTeamEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Player ${event.name} switched to team ${event.newTeam}`)
@@ -219,7 +219,7 @@ if (statsPort) {
   
   stats.onRoundOver((event: RoundOverEvent) => {
     if (fullStats) {
-      console.log(event)
+      console.log(`[${now()}]`, event)
     }
     else {
       console.log(`[${now()}] Team ${event.teamWon} won round ${event.round}`)
