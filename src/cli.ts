@@ -28,11 +28,13 @@ let statsPort = options['stats-port']
 let statsPassword = options['stats-password']
 let fullStats = options['full-stats']
 
-console.log('fullStats', fullStats)
-
 if (! address) {
   console.error('No Quake Live server address specified!')
   process.exit(1)
+}
+
+if (fullStats) {
+  console.log('Diplaying full stats...')
 }
 
 if (rconPort) {
@@ -102,7 +104,7 @@ if (rconPort) {
       str = str.replace(new RegExp('\\^6', 'g'), resolveColor('cyan'))
       str = str.replace(new RegExp('\\^7', 'g'), resolveColor('black'))
       
-      console.log(str)
+      console.log(`[${now()}] ${str}`)
     }
   
     cli.prompt()
@@ -139,10 +141,10 @@ if (statsPort) {
     }
     else {
       if (event.aborted) {
-        console.log(`${now()} Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
+        console.log(`[${now()}] Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
       }
       else {
-        console.log(`${now()} Game of type ${event.factory} has finished.`)
+        console.log(`[${now()}] Game of type ${event.factory} has finished.`)
       }  
     }
   })
@@ -152,7 +154,7 @@ if (statsPort) {
       console.log(fullStats)
     }
     else {
-      console.log(`${now()} Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
+      console.log(`[${now()}] Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
     }
   })
   
@@ -161,7 +163,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Player ${event.name} connected`)
+      console.log(`[${now()}] Player ${event.name} connected`)
     }
   })
   
@@ -171,10 +173,10 @@ if (statsPort) {
     }
     else {
       if (event.killer) {
-        console.log(`${now()} ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+        console.log(`[${now()}] ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
       }
       else {
-        console.log(`${now()} ${event.mod} fragged ${event.victim.name}`)
+        console.log(`[${now()}] ${event.mod} fragged ${event.victim.name}`)
       }
     }
   })
@@ -184,7 +186,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Player ${event.name} disconnected`)
+      console.log(`[${now()}] Player ${event.name} disconnected`)
     }
   })
   
@@ -193,7 +195,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Player ${event.name} earned medal ${event.medal}`)
+      console.log(`[${now()}] Player ${event.name} earned medal ${event.medal}`)
     }
   })
   
@@ -202,7 +204,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
+      console.log(`[${now()}] Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
     }
   })
   
@@ -211,7 +213,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Player ${event.name} switched to team ${event.newTeam}`)
+      console.log(`[${now()}] Player ${event.name} switched to team ${event.newTeam}`)
     }
   })
   
@@ -220,7 +222,7 @@ if (statsPort) {
       console.log(event)
     }
     else {
-      console.log(`${now()} Team ${event.teamWon} won round ${event.round}`)
+      console.log(`[${now()}] Team ${event.teamWon} won round ${event.round}`)
     }
   })
   
