@@ -106,7 +106,7 @@ if (rconPort) {
       str = str.replace(new RegExp('\\^6', 'g'), resolveColor('cyan'))
       str = str.replace(new RegExp('\\^7', 'g'), resolveColor('black'))
       
-      console.log(`[${now()}] ${str}`)
+      console.log(`[${now()}] (rcon) ${str}`)
     }
   
     cli.prompt()
@@ -140,92 +140,92 @@ if (statsPort) {
 
   stats.onMatchReport((event: MatchReportEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
       if (event.aborted) {
-        console.log(`[${now()}] Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
+        console.log(`[${now()}] (stats) Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
       }
       else {
-        console.log(`[${now()}] Game of type ${event.gameType}/${event.factory} has finished.`)
+        console.log(`[${now()}] (stats) Game of type ${event.gameType}/${event.factory} has finished.`)
       }  
     }
   })
   
   stats.onMatchStarted((event: MatchStartedEvent) => {
     if (fullStats) {
-      console.log(fullStats)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
+      console.log(`[${now()}] (stats) Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
     }
   })
   
   stats.onPlayerConnect((event: PlayerConnectEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Player ${event.name} connected`)
+      console.log(`[${now()}] (stats) Player ${event.name} connected`)
     }
   })
   
   stats.onPlayerDeath((event: PlayerDeathEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
       if (event.killer) {
-        console.log(`[${now()}] ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+        console.log(`[${now()}] (stats) ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
       }
       else {
-        console.log(`[${now()}] ${event.mod} fragged ${event.victim.name}`)
+        console.log(`[${now()}] (stats) ${event.mod} fragged ${event.victim.name}`)
       }
     }
   })
   
   stats.onPlayerDisconnect((event: PlayerDisconnectEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Player ${event.name} disconnected`)
+      console.log(`[${now()}] (stats) Player ${event.name} disconnected`)
     }
   })
   
   stats.onPlayerMedal((event: PlayerMedalEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Player ${event.name} earned medal ${event.medal}`)
+      console.log(`[${now()}] (stats) Player ${event.name} earned medal ${event.medal}`)
     }
   })
   
   stats.onPlayerStats((event: PlayerStatsEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
+      console.log(`[${now()}] (stats) Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
     }
   })
   
   stats.onPlayerSwitchTeam((event: PlayerSwitchTeamEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Player ${event.name} switched to team ${event.newTeam}`)
+      console.log(`[${now()}] (stats) Player ${event.name} switched to team ${event.newTeam}`)
     }
   })
   
   stats.onRoundOver((event: RoundOverEvent) => {
     if (fullStats) {
-      console.log(`[${now()}]`, event)
+      console.log(`[${now()}] (stats)`, event)
     }
     else {
-      console.log(`[${now()}] Team ${event.teamWon} won round ${event.round}`)
+      console.log(`[${now()}] (stats) Team ${event.teamWon} won round ${event.round}`)
     }
   })
   
