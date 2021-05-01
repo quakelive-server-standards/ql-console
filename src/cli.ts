@@ -35,7 +35,7 @@ if (rconPort) {
   let cli = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: address + ' '
+    prompt: `${address}:${rconPort} `
   })
   
   cli.on('line', (line) => {
@@ -88,9 +88,15 @@ if (rconPort) {
         str = str.substring(18, str.length - 4)
       }
   
-      // Remove ^7 characters
-      str = str.replace(new RegExp('\\^7', 'g'), '')
-  
+      // Resolve colors
+      str = str.replace(new RegExp('\\^1', 'g'), resolveColor('white'))
+      str = str.replace(new RegExp('\\^2', 'g'), resolveColor('red'))
+      str = str.replace(new RegExp('\\^3', 'g'), resolveColor('green'))
+      str = str.replace(new RegExp('\\^4', 'g'), resolveColor('yellow'))
+      str = str.replace(new RegExp('\\^5', 'g'), resolveColor('blue'))
+      str = str.replace(new RegExp('\\^6', 'g'), resolveColor('magenta'))
+      str = str.replace(new RegExp('\\^7', 'g'), resolveColor('black'))
+      
       console.log(str)
     }
   
@@ -124,9 +130,9 @@ if (statsPort) {
   
   stats.onMatchReport((event: MatchReportEvent) => {
     if (event.aborted) {
-      console.log(`${now()} Game was aborted after ${minutesSeconds(event.gameLength)}`)
+      console.log(`${now()} Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
     }
-    console.log(`${now()} Game has finished.`)
+    console.log(`${now()} Game of type ${event.factory} has finished.`)
   })
   
   stats.onMatchStarted((event: MatchStartedEvent) => {
@@ -187,4 +193,35 @@ function now() {
 
 function minutesSeconds(seconds: number){
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ':' : ':0') + seconds
+}
+
+function resolveColor(colorName: string): string {
+  switch (colorName) {
+    case 'reset': return '\x1b[0m'
+    case 'bright': return '\x1b[1m'
+    case 'dim': return '\x1b[2m'
+    case 'underscore': return '\x1b[4m'
+    case 'blink': return '\x1b[5m'
+    case 'reverse': return '\x1b[7m'
+    case 'hidden': return '\x1b[8m'
+    
+    case 'black': return '\x1b[30m'
+    case 'red': return '\x1b[31m'
+    case 'green': return '\x1b[32m'
+    case 'yellow': return '\x1b[33m'
+    case 'blue': return '\x1b[34m'
+    case 'magenta': return '\x1b[35m'
+    case 'cyan': return '\x1b[36m'
+    case 'white': return '\x1b[37m'
+    
+    case 'bgBlack': return '\x1b[40m'
+    case 'bgRed': return '\x1b[41m'
+    case 'bgGreen': return '\x1b[42m'
+    case 'bgYellow': return '\x1b[43m'
+    case 'bgBlue': return '\x1b[44m'
+    case 'bgMagenta': return '\x1b[45m'
+    case 'bgCyan': return '\x1b[46m'
+    case 'bgWhite': return '\x1b[47m'
+    default: return ''
+  }
 }
