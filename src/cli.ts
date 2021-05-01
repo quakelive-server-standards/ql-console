@@ -7,7 +7,8 @@ let commandLineOptions = [
   { name: 'rcon-port', type: Number } as commandLineArgs.OptionDefinition,
   { name: 'rcon-password', type: String } as commandLineArgs.OptionDefinition,
   { name: 'stats-port', type: Number } as commandLineArgs.OptionDefinition,
-  { name: 'stats-password', type: String } as commandLineArgs.OptionDefinition
+  { name: 'stats-password', type: String } as commandLineArgs.OptionDefinition,
+  { name: 'full-stats', type: Boolean, default: false } as commandLineArgs.OptionDefinition
 ]
 
 let options
@@ -25,6 +26,9 @@ let rconPort = options['rcon-port']
 let rconPassword = options['rcon-password']
 let statsPort = options['stats-port']
 let statsPassword = options['stats-password']
+let fullStats = options['full-stats']
+
+console.log('fullStats', fullStats)
 
 if (! address) {
   console.error('No Quake Live server address specified!')
@@ -130,47 +134,94 @@ if (statsPort) {
   // stats.onConnectRetried(() => console.log('Retried connecting to stats'))
   
   stats.onMatchReport((event: MatchReportEvent) => {
-    if (event.aborted) {
-      console.log(`${now()} Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
+    if (fullStats) {
+      console.log(event)
     }
-    console.log(`${now()} Game of type ${event.factory} has finished.`)
+    else {
+      if (event.aborted) {
+        console.log(`${now()} Game of type ${event.factory} was aborted after ${minutesSeconds(event.gameLength)}`)
+      }
+      else {
+        console.log(`${now()} Game of type ${event.factory} has finished.`)
+      }  
+    }
   })
   
   stats.onMatchStarted((event: MatchStartedEvent) => {
-    console.log(`${now()} Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
+    if (fullStats) {
+      console.log(fullStats)
+    }
+    else {
+      console.log(`${now()} Match in game type ${event.gameType}/${event.factory} on map ${event.map} has started`)
+    }
   })
   
   stats.onPlayerConnect((event: PlayerConnectEvent) => {
-    console.log(`${now()} Player ${event.name} connected`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Player ${event.name} connected`)
+    }
   })
   
   stats.onPlayerDeath((event: PlayerDeathEvent) => {
-    if (event.killer) {
-      console.log(`${now()} ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+    if (fullStats) {
+      console.log(event)
     }
     else {
-      console.log(`${now()} ${event.mod} fragged ${event.victim.name}`)
+      if (event.killer) {
+        console.log(`${now()} ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+      }
+      else {
+        console.log(`${now()} ${event.mod} fragged ${event.victim.name}`)
+      }
     }
   })
   
   stats.onPlayerDisconnect((event: PlayerDisconnectEvent) => {
-    console.log(`${now()} Player ${event.name} disconnected`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Player ${event.name} disconnected`)
+    }
   })
   
   stats.onPlayerMedal((event: PlayerMedalEvent) => {
-    console.log(`${now()} Player ${event.name} earned medal ${event.medal}`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Player ${event.name} earned medal ${event.medal}`)
+    }
   })
   
   stats.onPlayerStats((event: PlayerStatsEvent) => {
-    console.log(`${now()} Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
+    }
   })
   
   stats.onPlayerSwitchTeam((event: PlayerSwitchTeamEvent) => {
-    console.log(`${now()} Player ${event.name} switched to team ${event.newTeam}`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Player ${event.name} switched to team ${event.newTeam}`)
+    }
   })
   
   stats.onRoundOver((event: RoundOverEvent) => {
-    console.log(`${now()} Team ${event.teamWon} won round ${event.round}`)
+    if (fullStats) {
+      console.log(event)
+    }
+    else {
+      console.log(`${now()} Team ${event.teamWon} won round ${event.round}`)
+    }
   })
   
   if (statsPassword) {
