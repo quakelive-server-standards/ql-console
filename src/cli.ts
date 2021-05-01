@@ -70,7 +70,9 @@ if (rconPort) {
       ;(cli as any)._refreshLine()
   }
 
-  let rcon = new Rcon(address + ':' + rconPort, 'admin', rconPassword)
+  let rcon = new Rcon(address + ':' + rconPort, 'admin', rconPassword, {
+    reconnect_ivl: 10000
+  })
 
   rcon.onConnected((eventValue, address, error) => {
     if (! error) {
@@ -81,9 +83,8 @@ if (rconPort) {
       console.log('There was an error connecting to rcon API ', error)
     }
   })
-  
-  // rcon.onConnectDelayed(() => console.log('Delayed connecting to rcon'))
-  // rcon.onConnectRetried(() => console.log('Retried connecting to rcon'))
+
+  rcon.onConnectRetried(() => console.log(`${resolveColor('bright')}Connecting to rcon failed...${resolveColor('reset')}`))
   
   rcon.onMessage(message => {
     if (message.length > 0) {
@@ -121,7 +122,9 @@ if (rconPort) {
 }
 
 if (statsPort) {
-  let stats = new Stats(address + ':' + statsPort, statsPassword)
+  let stats = new Stats(address + ':' + statsPort, statsPassword, {
+    reconnect_ivl: 10000
+  })
 
   stats.onConnected((eventValue, address, error) => {
     if (! error) {
@@ -132,9 +135,8 @@ if (statsPort) {
     }
   })
   
-  // stats.onConnectDelayed(() => console.log('Delayed connecting to stats'))
-  // stats.onConnectRetried(() => console.log('Retried connecting to stats'))
-  
+  stats.onConnectRetried(() => console.log(`${resolveColor('bright')}Connecting to stats failed...${resolveColor('reset')}`))
+
   stats.onMatchReport((event: MatchReportEvent) => {
     if (fullStats) {
       console.log(`[${now()}]`, event)
