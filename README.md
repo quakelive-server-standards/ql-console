@@ -4,7 +4,7 @@ This is a client for the Quake Live dedicated server rcon and stats services. Yo
 
 ## Install
 
-Clone this Git repository. Nothing more is needed. The compiled JavaScript file and `node_modules` directory are included for your convenience.
+Install Node and clone this Git repository. Nothing more is needed. The compiled JavaScript file and `node_modules` directory are included for your convenience.
 
 ## Usage
 
