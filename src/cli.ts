@@ -41,7 +41,7 @@ if (rconPort) {
   let cli = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: `${address}:${rconPort} `
+    prompt: `${resolveColor('bright')}${address}:${rconPort}${resolveColor('reset')} `
   })
   
   cli.on('line', (line) => {
@@ -50,7 +50,7 @@ if (rconPort) {
     }
   
     if (line == 'exit') {
-      console.log('Good Game')
+      log(`${resolveColor('bright')}Good Game${resolveColor('reset')}`)
       process.exit()
     }
   
@@ -58,7 +58,7 @@ if (rconPort) {
   })
   
   cli.on('close', () => {
-    console.log('Good Game')
+    log(`${resolveColor('bright')}\nGood Game${resolveColor('reset')}`)
     process.exit(0)
   })
   
