@@ -1,0 +1,25 @@
+{
+  "name": "qli-cli",
+  "version": "1.0.0",
+  "description": "A Quake Live dedicated server rcon and stats cli",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "start": "npm build && node src/cli.js",
+    "build": "rm -rf lib && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^15.0.1",
+    "ts-node": "^9.1.1"
+  },
+  "dependencies": {
+    "@types/command-line-args": "^5.0.0",
+    "command-line-args": "^5.1.1",
+    "ql-api": "^0.1.2"
+  }
+}
