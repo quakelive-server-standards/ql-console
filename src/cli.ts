@@ -50,7 +50,7 @@ if (rconPort) {
     }
   
     if (line == 'exit') {
-      log(`${resolveColor('bright')}Good Game${resolveColor('reset')}`)
+      log('Good Game')
       process.exit()
     }
   
@@ -58,7 +58,7 @@ if (rconPort) {
   })
   
   cli.on('close', () => {
-    log(`${resolveColor('bright')}\nGood Game${resolveColor('reset')}`)
+    log('\nGood Game')
     process.exit(0)
   })
   
@@ -77,7 +77,7 @@ if (rconPort) {
   rcon.onConnected((eventValue, address, error) => {
     if (! error) {
       console.log('Rcon connected')
-      rcon.send('register')
+      rcon.send('gl&hf')
       cli.prompt()
     }
     else {
