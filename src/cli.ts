@@ -89,12 +89,13 @@ if (rconPort) {
       }
   
       // Resolve colors
-      str = str.replace(new RegExp('\\^1', 'g'), resolveColor('white'))
-      str = str.replace(new RegExp('\\^2', 'g'), resolveColor('red'))
-      str = str.replace(new RegExp('\\^3', 'g'), resolveColor('green'))
-      str = str.replace(new RegExp('\\^4', 'g'), resolveColor('yellow'))
-      str = str.replace(new RegExp('\\^5', 'g'), resolveColor('blue'))
-      str = str.replace(new RegExp('\\^6', 'g'), resolveColor('magenta'))
+      str = str.replace(new RegExp('\\^0', 'g'), resolveColor('white'))
+      str = str.replace(new RegExp('\\^1', 'g'), resolveColor('red'))
+      str = str.replace(new RegExp('\\^2', 'g'), resolveColor('gree'))
+      str = str.replace(new RegExp('\\^3', 'g'), resolveColor('yellow'))
+      str = str.replace(new RegExp('\\^4', 'g'), resolveColor('blue'))
+      str = str.replace(new RegExp('\\^5', 'g'), resolveColor('magenta'))
+      str = str.replace(new RegExp('\\^6', 'g'), resolveColor('cyan'))
       str = str.replace(new RegExp('\\^7', 'g'), resolveColor('black'))
       
       console.log(str)
