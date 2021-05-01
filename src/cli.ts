@@ -77,6 +77,7 @@ if (rconPort) {
   rcon.onConnected((eventValue, address, error) => {
     if (! error) {
       console.log('Rcon connected')
+      rcon.send('register')
       cli.prompt()
     }
     else {
