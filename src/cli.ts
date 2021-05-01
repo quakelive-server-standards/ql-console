@@ -41,14 +41,15 @@ if (rconPort) {
   let cli = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: `${resolveColor('bright')}${address}:${rconPort}${resolveColor('reset')} `
+    prompt: `${resolveColor('bright')}${address}:${rconPort}${resolveColor('reset')} `,
+    removeHistoryDuplicates: true
   })
   
   cli.on('line', (line) => {
     if (line.length == 0) {
       return
     }
-  
+
     if (line == 'exit') {
       log('Good Game')
       process.exit()
@@ -90,7 +91,7 @@ if (rconPort) {
   rcon.onMessage(message => {
     if (message.length > 0) {
       let str = message.toString()
-      
+
       // Clean up messages like: broadcast: print "Vote passed.\n"
       if (str.startsWith('broadcast: print "')) {
         str = str.substring(18, str.length - 4)
