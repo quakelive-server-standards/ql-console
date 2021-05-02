@@ -1,4 +1,4 @@
-# Quake Live decidacted server Rcon client
+# Quake Live server remote console
 
 This is a client for the Quake Live dedicated server rcon and stats services. You can either connect to one of them or to both of them at the same time.
 
