@@ -13,3 +13,6 @@ If you want to connect to rcon, specify the rcon port and the rcon password if n
 ```sh
 ./connect.sh 127.0.0.1 --rcon-port 28960 --rcon-password rconadmin --stats-port 27960 --stats-password statsadmin
 ```
+## Print full Quake Live stats events
+
+You can use option `--full-stats` to print the full stats event object instead of the user friendly short version.
