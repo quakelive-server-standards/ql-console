@@ -1,6 +1,6 @@
 import * as commandLineArgs from 'command-line-args'
 import { Rcon, Stats } from 'ql-api'
-import { MatchReportEvent, MatchStartedEvent, PlayerConnectEvent, PlayerDeathEvent, PlayerDisconnectEvent, PlayerMedalEvent, PlayerStatsEvent, PlayerSwitchTeamEvent, RoundOverEvent } from 'ql-stats-model'
+import { MatchReportEvent, MatchStartedEvent, PlayerConnectEvent, PlayerDeathEvent, PlayerDisconnectEvent, PlayerKillEvent, PlayerMedalEvent, PlayerStatsEvent, PlayerSwitchTeamEvent, RoundOverEvent } from 'ql-stats-model'
 import * as readline from 'readline'
 
 let commandLineOptions = [
@@ -198,6 +198,20 @@ if (statsPort) {
     }
     else {
       console.log(`[${now()}] (stats) Player ${event.name} disconnected`)
+    }
+  })
+  
+  stats.onPlayerKill((event: PlayerKillEvent) => {
+    if (fullStats) {
+      console.log(`[${now()}] (stats)`, event)
+    }
+    else {
+      if (event.killer) {
+        console.log(`[${now()}] (stats) ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+      }
+      else {
+        console.log(`[${now()}] (stats) ${event.mod} fragged ${event.victim.name}`)
+      }
     }
   })
   
