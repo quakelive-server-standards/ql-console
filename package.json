@@ -1,6 +1,6 @@
 {
   "name": "qli-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Quake Live dedicated server rcon and stats cli",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
