@@ -14,8 +14,20 @@ If you want to connect to rcon, specify the rcon port and the rcon password if n
 ./connect.sh 127.0.0.1 --rcon-port 28960 --rcon-password rconadmin --stats-port 27960 --stats-password statsadmin
 ```
 
-You can exit the console by either using `Ctril+C` or issuing the command `exit`.
+You can exit the console by either using `Ctrl+C` or issuing the command `exit`.
 
-## Print full Quake Live stats events
+## Display full Quake Live stats events
 
-You can use option `--full-stats` to print the full stats event object instead of the user friendly short version.
+You can use option `--full-stats` to display the full stats event object instead of the user friendly short version. These objects are based on based on [ql-stats-model](https://github.com/quakelive-server-standards/ql-stats-model).
+
+Use `--raw-stats` to display the original Quake Live stats objects.
+
+## Docker
+
+There is also a [Docker image](https://hub.docker.com/repository/docker/quakeliveserverstandards/ql-console) which you can use to run QL Console.
+
+```shell
+docker run --rm -ti quakeliveserverstandards/ql-console $*
+```
+
+If you are running your own Quake Live servers you can use Quake Live Server Standards [server framework](https://github.com/quakelive-server-standards/server-standards). It ships with the Dockerized QL Console.

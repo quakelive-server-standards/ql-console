@@ -1,5 +1,6 @@
 import * as commandLineArgs from 'command-line-args'
-import { MatchReportEvent, MatchStartedEvent, PlayerConnectEvent, PlayerDeathEvent, PlayerDisconnectEvent, PlayerMedalEvent, PlayerStatsEvent, PlayerSwitchTeamEvent, Rcon, RoundOverEvent, Stats } from 'ql-api'
+import { Rcon, Stats } from 'ql-api'
+import { MatchReportEvent, MatchStartedEvent, PlayerConnectEvent, PlayerDeathEvent, PlayerDisconnectEvent, PlayerMedalEvent, PlayerStatsEvent, PlayerSwitchTeamEvent, RoundOverEvent } from 'ql-stats-model'
 import * as readline from 'readline'
 
 let commandLineOptions = [
@@ -8,7 +9,8 @@ let commandLineOptions = [
   { name: 'rcon-password', type: String } as commandLineArgs.OptionDefinition,
   { name: 'stats-port', type: Number } as commandLineArgs.OptionDefinition,
   { name: 'stats-password', type: String } as commandLineArgs.OptionDefinition,
-  { name: 'full-stats', type: Boolean, default: false } as commandLineArgs.OptionDefinition
+  { name: 'full-stats', type: Boolean, default: false } as commandLineArgs.OptionDefinition,
+  { name: 'raw-stats', type: Boolean, default: false } as commandLineArgs.OptionDefinition
 ]
 
 let options
@@ -27,6 +29,7 @@ let rconPassword = options['rcon-password']
 let statsPort = options['stats-port']
 let statsPassword = options['stats-password']
 let fullStats = options['full-stats']
+let rawStats = options['raw-stats']
 
 if (! address) {
   console.error('No Quake Live server address specified!')
@@ -35,6 +38,10 @@ if (! address) {
 
 if (fullStats) {
   console.log('Diplaying full stats...')
+}
+
+if (rawStats) {
+  console.log('Diplaying raw stats...')
 }
 
 if (rconPort) {
@@ -229,6 +236,12 @@ if (statsPort) {
       console.log(`[${now()}] (stats) Team ${event.teamWon} won round ${event.round}`)
     }
   })
+
+  stats.onRawQlEvent((event: any) => {
+    if (rawStats) {
+      console.log(`[${now()}] (stats)`, event)
+    }
+  })
   
   if (statsPassword) {
     console.log(`Connecting to stats ${address}:${statsPort} using password ${statsPassword}...`)
@@ -237,7 +250,7 @@ if (statsPort) {
     console.log(`Connecting to stats ${address}:${statsPort}...`)
   }
 
-  stats.connect()  
+  stats.connect()
 }
 
 function now() {
