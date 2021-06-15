@@ -105,14 +105,7 @@ if (rconPort) {
       }
   
       // Resolve colors
-      str = str.replace(new RegExp('\\^0', 'g'), resolveColor('black'))
-      str = str.replace(new RegExp('\\^1', 'g'), resolveColor('red'))
-      str = str.replace(new RegExp('\\^2', 'g'), resolveColor('gree'))
-      str = str.replace(new RegExp('\\^3', 'g'), resolveColor('yellow'))
-      str = str.replace(new RegExp('\\^4', 'g'), resolveColor('blue'))
-      str = str.replace(new RegExp('\\^5', 'g'), resolveColor('magenta'))
-      str = str.replace(new RegExp('\\^6', 'g'), resolveColor('cyan'))
-      str = str.replace(new RegExp('\\^7', 'g'), resolveColor('white'))
+      str = resolveQuakeLiveColors(str)
       
       console.log(`[${now()}] (rcon) ${str}`)
     }
@@ -168,7 +161,7 @@ if (statsPort) {
   })
   
   stats.onPlayerConnect((event: PlayerConnectEvent) => {
-    console.log(`[${now()}] (stats) Player ${event.name} connected`)
+    console.log(`[${now()}] (stats) Player ${resolveQuakeLiveColors(event.name)} connected`)
 
     if (fullStats) {
       console.log(`[${now()}] (stats)`, event)
@@ -177,10 +170,10 @@ if (statsPort) {
   
   stats.onPlayerDeath((event: PlayerDeathEvent) => {
     if (event.killer) {
-      console.log(`[${now()}] (stats) ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+      console.log(`[${now()}] (stats) ${resolveQuakeLiveColors(event.killer.name)} fragged ${resolveQuakeLiveColors(event.victim.name)} with ${event.killer.weapon}`)
     }
     else {
-      console.log(`[${now()}] (stats) ${event.mod} fragged ${event.victim.name}`)
+      console.log(`[${now()}] (stats) ${event.mod} fragged ${resolveQuakeLiveColors(event.victim.name)}`)
     }
 
     if (fullStats) {
@@ -189,7 +182,7 @@ if (statsPort) {
   })
   
   stats.onPlayerDisconnect((event: PlayerDisconnectEvent) => {
-    console.log(`[${now()}] (stats) Player ${event.name} disconnected`)
+    console.log(`[${now()}] (stats) Player ${resolveQuakeLiveColors(event.name)} disconnected`)
 
     if (fullStats) {
       console.log(`[${now()}] (stats)`, event)
@@ -198,10 +191,10 @@ if (statsPort) {
   
   stats.onPlayerKill((event: PlayerKillEvent) => {
     if (event.killer) {
-      console.log(`[${now()}] (stats) ${event.killer.name} fragged ${event.victim.name} with ${event.killer.weapon}`)
+      console.log(`[${now()}] (stats) ${resolveQuakeLiveColors(event.killer.name)} fragged ${resolveQuakeLiveColors(event.victim.name)} with ${event.killer.weapon}`)
     }
     else {
-      console.log(`[${now()}] (stats) ${event.mod} fragged ${event.victim.name}`)
+      console.log(`[${now()}] (stats) ${event.mod} fragged ${resolveQuakeLiveColors(event.victim.name)}`)
     }
 
     if (fullStats) {
@@ -210,7 +203,7 @@ if (statsPort) {
   })
   
   stats.onPlayerMedal((event: PlayerMedalEvent) => {
-    console.log(`[${now()}] (stats) Player ${event.name} earned medal ${event.medal}`)
+    console.log(`[${now()}] (stats) Player ${resolveQuakeLiveColors(event.name)} earned medal ${event.medal}`)
 
     if (fullStats) {
       console.log(`[${now()}] (stats)`, event)
@@ -218,7 +211,7 @@ if (statsPort) {
   })
   
   stats.onPlayerStats((event: PlayerStatsEvent) => {
-    console.log(`[${now()}] (stats) Player ${event.name} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
+    console.log(`[${now()}] (stats) Player ${resolveQuakeLiveColors(event.name)} made ${event.kills} frags and died ${event.deaths} times which earned her/him rank ${event.rank}`)
 
     if (fullStats) {
       console.log(`[${now()}] (stats)`, event)
@@ -226,7 +219,7 @@ if (statsPort) {
   })
   
   stats.onPlayerSwitchTeam((event: PlayerSwitchTeamEvent) => {
-    console.log(`[${now()}] (stats) Player ${event.name} switched to team ${event.newTeam}`)
+    console.log(`[${now()}] (stats) Player ${resolveQuakeLiveColors(event.name)} switched to team ${event.newTeam}`)
 
     if (fullStats) {
       console.log(`[${now()}] (stats)`, event)
@@ -268,6 +261,21 @@ function now() {
 
 function minutesSeconds(seconds: number){
   return (seconds - (seconds %= 60)) / 60 + (9 < seconds ? ':' : ':0') + seconds
+}
+
+function resolveQuakeLiveColors(str: string): string {
+  str += resolveColor('white')
+  str = str.replace(new RegExp('\\^0', 'g'), resolveColor('black'))
+  str = str.replace(new RegExp('\\^1', 'g'), resolveColor('red'))
+  str = str.replace(new RegExp('\\^2', 'g'), resolveColor('gree'))
+  str = str.replace(new RegExp('\\^3', 'g'), resolveColor('yellow'))
+  str = str.replace(new RegExp('\\^4', 'g'), resolveColor('blue'))
+  str = str.replace(new RegExp('\\^5', 'g'), resolveColor('magenta'))
+  str = str.replace(new RegExp('\\^6', 'g'), resolveColor('cyan'))
+  str = str.replace(new RegExp('\\^7', 'g'), resolveColor('white'))
+  str += resolveColor('reset')
+
+  return str
 }
 
 function resolveColor(colorName: string): string {
