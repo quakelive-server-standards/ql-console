@@ -1,14 +1,14 @@
 {
   "name": "ql-consolse",
   "version": "1.1.1",
-  "description": "A Quake Live dedicated server rcon and stats cli",
+  "description": "A Quake Live dedicated server rcon and stats console",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
   "scripts": {
-    "start": "node src/cli.js",
+    "start": "node src/console.js",
     "build": "rm -rf lib && tsc"
   },
   "author": "",
