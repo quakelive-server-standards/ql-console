@@ -1,5 +1,5 @@
 {
-  "name": "qli-cli",
+  "name": "ql-consolse",
   "version": "1.1.1",
   "description": "A Quake Live dedicated server rcon and stats cli",
   "main": "lib/index.js",
@@ -20,6 +20,6 @@
   "dependencies": {
     "@types/command-line-args": "^5.0.0",
     "command-line-args": "^5.1.1",
-    "ql-api": "^0.2.1"
+    "ql-api": "^0.2.2"
   }
 }
