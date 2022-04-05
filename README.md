@@ -27,7 +27,9 @@ Use `--raw-stats` to display the original Quake Live stats objects.
 There is also a [Docker image](https://hub.docker.com/repository/docker/quakeliveserverstandards/ql-console) which you can use to run QL Console.
 
 ```shell
-docker run --rm -ti quakeliveserverstandards/ql-console $*
+docker run --rm -ti --add-host host.docker.internal:host-gateway quakeliveserverstandards/ql-console host.docker.internal --rcon-port 28960 --rcon-password rconadmin --stats-port 27960 --stats-password statsadmin
 ```
+
+Use the hostname `host.docker.internal` instead of `localhost` if you want to connect to Quake Live servers that are running on the same machine.
 
 If you are running your own Quake Live servers you can use Quake Live Server Standards [server framework](https://github.com/quakelive-server-standards/server-standards). It ships with the Dockerized QL Console.
