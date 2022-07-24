@@ -37,11 +37,11 @@ if (! address) {
 }
 
 if (fullStats) {
-  console.log('Diplaying full stats...')
+  console.log('Displaying full stats...')
 }
 
 if (rawStats) {
-  console.log('Diplaying raw stats...')
+  console.log('Displaying raw stats...')
 }
 
 if (rconPort) {
@@ -58,7 +58,7 @@ if (rconPort) {
     }
 
     if (line == 'exit') {
-      log('Good Game')
+      log(`${resolveColor('bright')}Good Game${resolveColor('reset')}`)
       process.exit()
     }
   
@@ -66,7 +66,7 @@ if (rconPort) {
   })
   
   cli.on('close', () => {
-    log('\nGood Game')
+    log(`\n${resolveColor('bright')}Good Game${resolveColor('reset')}`)
     process.exit(0)
   })
   
@@ -84,16 +84,16 @@ if (rconPort) {
 
   rcon.onConnected((eventValue, address, error) => {
     if (! error) {
-      console.log('Rcon connected')
+      console.log(`${resolveColor('bright')}Sucessfully connected to rcon API${resolveColor('reset')}`)
       rcon.send('gl&hf')
       cli.prompt()
     }
     else {
-      console.log('There was an error connecting to rcon API ', error)
+      console.log(`${resolveColor('bright')}There was an error connecting to rcon API${resolveColor('reset')}`, error)
     }
   })
 
-  rcon.onConnectRetried(() => console.log(`${resolveColor('bright')}Connecting to rcon failed...${resolveColor('reset')}`))
+  rcon.onConnectRetried(() => console.log(`${resolveColor('bright')}Reconnecting to rcon API failed...${resolveColor('reset')}`))
   
   rcon.onMessage(message => {
     if (message.length > 0) {
@@ -114,10 +114,10 @@ if (rconPort) {
   })
 
   if (rconPassword) {
-    console.log(`Connecting to rcon ${address}:${rconPort} using password ${rconPassword}...`)
+    console.log(`${resolveColor('bright')}Connecting to rcon ${address}:${rconPort} using password ${rconPassword}...${resolveColor('reset')}`)
   }
   else {
-    console.log(`Connecting to rcon ${address}:${rconPort}...`)
+    console.log(`${resolveColor('bright')}Connecting to rcon ${address}:${rconPort}...${resolveColor('reset')}`)
   }
 
   rcon.connect()
@@ -130,14 +130,14 @@ if (statsPort) {
 
   stats.onConnected((eventValue, address, error) => {
     if (! error) {
-      console.log('Stats connected')
+      console.log(`${resolveColor('bright')}Successfully connected to stats API${resolveColor('reset')}`)
     }
     else {
-      console.error('There was an error connecting to stats API', error)
+      console.error(`${resolveColor('bright')}There was an error connecting to stats API${resolveColor('reset')}`, error)
     }
   })
   
-  stats.onConnectRetried(() => console.log(`${resolveColor('bright')}Connecting to stats failed...${resolveColor('reset')}`))
+  stats.onConnectRetried(() => console.log(`${resolveColor('bright')}Reconnecting to stats API failed...${resolveColor('reset')}`))
 
   stats.onMatchReport((event: MatchReportEvent) => {
     if (event.aborted) {
@@ -241,10 +241,10 @@ if (statsPort) {
   })
   
   if (statsPassword) {
-    console.log(`Connecting to stats ${address}:${statsPort} using password ${statsPassword}...`)
+    console.log(`${resolveColor('bright')}Connecting to stats API at ${address}:${statsPort} using password ${statsPassword}...${resolveColor('reset')}`)
   }
   else {
-    console.log(`Connecting to stats ${address}:${statsPort}...`)
+    console.log(`${resolveColor('bright')}Connecting to stats API at ${address}:${statsPort}...${resolveColor('reset')}`)
   }
 
   stats.connect()
