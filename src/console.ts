@@ -84,7 +84,7 @@ if (rconPort) {
 
   rcon.onConnected((eventValue, address, error) => {
     if (! error) {
-      console.log(`${resolveColor('bright')}Sucessfully connected to rcon API${resolveColor('reset')}`)
+      console.log(`${resolveColor('bright')}Successfully connected to rcon API${resolveColor('reset')}`)
       rcon.send('gl&hf')
       cli.prompt()
     }
